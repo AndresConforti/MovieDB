@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/constants.dart';
+import '../../utils/dimens.dart';
+import '../../utils/strings.dart';
 
 class LikeButton extends StatefulWidget {
   const LikeButton({super.key});
@@ -10,7 +11,7 @@ class LikeButton extends StatefulWidget {
 
 class _LikeButtonState extends State<LikeButton> {
   bool isLiked = false;
-  int countLikes = Constants.defaultLikes;
+  int countLikes = Dimens.defaultLikes;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _LikeButtonState extends State<LikeButton> {
           });
         },
         icon: Icon(isLiked ? Icons.favorite : Icons.favorite_border),
-        label: Text(Constants.likedText+countLikes.toString()),
+        label: Text(Strings.likedText + countLikes.toString()),
       ),
     );
   }
