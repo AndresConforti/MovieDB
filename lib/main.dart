@@ -1,35 +1,65 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import './constants/constants.dart';
+import './widgets/movie_header.dart';
+import './widgets/like_button.dart';
+import './widgets/poster_images.dart';
+import './widgets/rating_stars.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  messagePrint() {
-    if (kDebugMode) {
-      print('Function Called');
-    }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: Constants.appName,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
+      ),
+      home: const MyWidget(),
+    );
   }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        home: Scaffold(
-            body: SafeArea(
-                top: true,
-                bottom: true,
-                left: true,
-                right: true,
-                child: Center(
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      body: SafeArea(
+        child: ListView(
+          children: const [
+            Center(
+              child: PosterImages(),
+            ),
+            Column(
+              children: [
+                MovieHeader(),
+                RatingStars(),
+                Padding(
+                  padding: EdgeInsets.all(Constants.descriptionPaddingSize),
                   child: Text(
-                    'Example of SafeArea Widget in Flutter',
+                    Constants.overview,
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: Constants.descriptionTextSize,
                       color: Colors.black,
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ))));
+                ),
+                Center(
+                  child: LikeButton(),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
