@@ -1,4 +1,5 @@
 abstract class RoutesNames {
   static const home = "/";
-  static const movieDetails = '/movie';
+  static const movieList = "/movie_list";
+  static const movieDetails = '/movie_details';
 }

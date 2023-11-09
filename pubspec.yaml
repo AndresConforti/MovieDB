@@ -36,8 +36,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   lint: ^2.0.0
+  http: ^1.1.0
+  rxdart: ^0.27.7
+  cached_network_image: ^3.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

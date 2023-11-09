@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+
 import '../../core/utils/dimens.dart';
 import '../../domain/entity/movie_entity.dart';
+import '../bloc/movie_details_bloc.dart';
 import '../widget/movie_details/details_footer.dart';
 import '../widget/movie_details/details_genres.dart';
-import '../widget/movie_details/details_likes.dart';
 import '../widget/movie_details/details_header.dart';
 import '../widget/movie_details/details_images.dart';
+import '../widget/movie_details/details_likes.dart';
 import '../widget/movie_details/details_rating.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -16,6 +18,17 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  final MovieDetailsBloc movieDetailsBloc = MovieDetailsBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final payload = ModalRoute.of(context)!.settings.arguments! as Movie;
+      movieDetailsBloc.getGenresById(payload.genres);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final payload = ModalRoute.of(context)!.settings.arguments! as Movie;
@@ -38,7 +51,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   originalTitle: payload.originalTitle,
                 ),
                 RatingStars(voteAverage: payload.voteAverage),
-                DetailGenres(genres: payload.genres),
+                DetailGenres(genreStream: movieDetailsBloc.dataStream),
                 DetailFooter(
                   releaseDate: payload.releaseDate,
                   overview: payload.overview,

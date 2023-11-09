@@ -34,9 +34,9 @@ class Dimens {
 
   // Size Constants
   static const defaultTextSize = 18.0;
-  static const titleTextSize = 26.0;
+  static const titleTextSize = 16.0;
   static const infoPadding = 9.0;
-  static const titleStroke = 5.0;
+  static const titleStroke = 3.0;
   static const titleStrokeMaxLines = 3;
   static const zero = 0.0;
 }

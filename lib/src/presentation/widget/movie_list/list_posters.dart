@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/dimens.dart';
+
+import '../common/stroked_text.dart';
 
 class ListPosters extends StatelessWidget {
-  final String poster;
+  final String posterUrl;
+  final String title;
 
   const ListPosters({
     super.key,
-    required this.poster,
+    required this.posterUrl,
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Dimens.posterHeight,
-      padding: const EdgeInsets.only(
-        top: Dimens.posterPadding,
-        bottom: Dimens.zero,
-        right: Dimens.posterPadding,
-        left: Dimens.posterPadding,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.posterRadius),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(Dimens.posterRadius),
-        child: SizedBox.fromSize(
-          child: Image.network(
-            poster,
-            fit: BoxFit.cover,
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: SizedBox.fromSize(
+            child: Image.network(
+              posterUrl,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
-      ),
+        Align(
+          alignment: FractionalOffset.bottomCenter,
+          child: Container(
+            color: Colors.black54,
+            child: StrokedText(
+              text: title,
+              textSize: 15,
+              strokeSize: 5,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

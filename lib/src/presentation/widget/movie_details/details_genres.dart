@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import '../../../data/repository/genre_repo.dart';
-import '../../../domain/repository/interface/genre_interface.dart';
+
 import '../../../core/utils/dimens.dart';
 import '../../../core/utils/strings.dart';
+import '../../../domain/entity/genres_state.dart';
 import '../common/snapshot_text.dart';
 import 'details_genres_card.dart';
 
 class DetailGenres extends StatelessWidget {
-  final List<int> genres;
-  final GenreInterface genreRepo = GenreRepository();
+  final Stream<GenreListState> genreStream;
 
   DetailGenres({
     super.key,
-    required this.genres,
+    required this.genreStream,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-      future: genreRepo.getGenresById(genres),
+    return StreamBuilder<GenreListState>(
+      stream: genreStream,
       builder: (
         BuildContext context,
-        AsyncSnapshot<List<String>> snapshot,
+        AsyncSnapshot<GenreListState> snapshot,
       ) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -36,12 +35,12 @@ class DetailGenres extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: snapshot.data?.length,
+                itemCount: snapshot.data!.data?.length,
                 itemBuilder: (
                   BuildContext context,
                   int index,
                 ) {
-                  return GenresCard(genreName: snapshot.data![index]);
+                  return GenresCard(genreName: snapshot.data!.data![index]);
                 },
               ),
             );

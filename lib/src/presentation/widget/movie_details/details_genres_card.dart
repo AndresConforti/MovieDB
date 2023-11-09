@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/utils/dimens.dart';
 
 class GenresCard extends StatelessWidget {
@@ -26,7 +27,7 @@ class GenresCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(Dimens.infoPadding),
             child: Text(
-              genreName.toUpperCase(),
+              genreName.toString().toUpperCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
